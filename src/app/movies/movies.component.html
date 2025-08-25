@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span class="title">🎬 Movie List</span>
+  <span class="spacer"></span>
+  <span class="avg">Average Rating: <strong>{{ averageRating }}</strong></span>
+</mat-toolbar>
+
+<div class="controls">
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Genre</mat-label>
+    <mat-select [(ngModel)]="selectedGenre">
+      <mat-option *ngFor="let g of genres" [value]="g">{{ g }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="grid">
+  <mat-card
+    *ngFor="let m of filteredMovies"
+    class="movie-card"
+    [class.top-rated]="isTopRated(m)"
+  >
+    <img mat-card-image [src]="m.poster" [alt]="m.title + ' poster'">
+
+    <mat-card-content>
+      <div class="card-header">
+        <h3 class="title">{{ m.title }}</h3>
+        <span class="genre">{{ m.genre }}</span>
+      </div>
+
+      <div class="rating">
+        <mat-icon *ngFor="let i of [1,2,3,4,5]">{{ starIcon(i, m.rating) }}</mat-icon>
+        <span class="rating-num">{{ m.rating }}</span>
+      </div>
+
+      <p class="desc">{{ m.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
